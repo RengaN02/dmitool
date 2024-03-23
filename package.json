@@ -1,1 +1,12 @@
-{}
+{
+  "name": "dmibrowse",
+  "version": "0.0.1",
+  "description": "Nodejs Dmi browse",
+  "author": {
+    "name": "Rengan"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  }
+}
