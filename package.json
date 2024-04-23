@@ -1,12 +1,23 @@
 {
-  "name": "dmibrowse",
-  "version": "0.0.1",
-  "description": "Nodejs Dmi browse",
-  "author": {
-    "name": "Rengan"
-  },
+  "name": "nodejs-dmiparse",
+  "version": "1.0.0",
+  "description": "Nodejs Dmi Parse Example",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "todo"
+  },
+  "keywords": [
+    "dmi"
+  ],
+  "author": "Rengan",
+  "license": "MIT",
+  "dependencies": {
+    "@lunapaint/png-codec": "^0.2.0",
+    "image-js": "^0.35.5",
+    "upng-js": "^2.1.0"
   }
 }

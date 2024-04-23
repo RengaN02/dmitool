@@ -1,2 +1,2 @@
-# browsedmi
-Nodejs Dmi Browser Example(?)
+# Nodejs Dmi
+Nodejs Dmi Parse Example
