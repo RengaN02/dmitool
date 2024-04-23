@@ -27,7 +27,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Dmi States"
           git pull origin main
-          git add database.json
+          git add -f database.json
           git commit -m "Automatic dmi compile." -a || true
       - name: "Push"
         uses: ad-m/github-push-action@master
