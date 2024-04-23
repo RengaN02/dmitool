@@ -7,6 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      name: Testing Converting
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       with:
