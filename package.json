@@ -14,7 +14,6 @@
     "dmi"
   ],
   "author": "Rengan",
-  "license": "MIT",
   "dependencies": {
     "@lunapaint/png-codec": "^0.2.0",
     "image-js": "^0.35.5",
