@@ -5,12 +5,12 @@ on:
       - master
 jobs:
   build:
+    name: Testing Converting
     runs-on: ubuntu-latest
     steps:
-      name: Testing Converting
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      with:
-        node-version: 18
-      - run: npm install @lunapaint/png-codec
-      - run: node main.js
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+        - run: npm install @lunapaint/png-codec
+        - run: node main.js
