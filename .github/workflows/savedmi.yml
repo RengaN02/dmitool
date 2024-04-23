@@ -16,9 +16,10 @@ jobs:
         with:
           node-version: "20.x"
       - name: Install Dependencies
-        run: npm install
-        run: npm install @lunapaint/png-codec
-        run: npm install saver.db
+        run: |
+          npm install
+          npm install @lunapaint/png-codec
+          npm install saver.db
       - name: Run main.js
         run: node main.js
       - name: Commit
