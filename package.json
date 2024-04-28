@@ -16,6 +16,7 @@
   "author": "Rengan",
   "dependencies": {
     "@lunapaint/png-codec": "^0.2.0",
+    "axios": "^1.6.8",
     "image-js": "^0.35.5",
     "saver.db": "^3.0.3",
     "upng-js": "^2.1.0"

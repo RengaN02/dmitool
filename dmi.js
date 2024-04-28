@@ -219,10 +219,10 @@ class DmiState {
 
 
 class Dmi {
-    constructor(width, height) {
+    constructor(width, height, states) {
         this.width = width;
         this.height = height;
-        this.states = [];
+        this.states = states ? states : [];
         this.version = "4.0";
     }
 
@@ -331,10 +331,6 @@ class Dmi {
             );
             state.frames_encoded = state.frames.map(x => x.toDataURL());
         }
-    }
-    static async zort(data) {
-        const decoded = await decodePng(data, { parseChunkTypes: "*" });
-        return decoded.image.data;
     }
 
     static async parse(data) {
