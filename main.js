@@ -1,8 +1,6 @@
 const Dmi = require("./dmi.js")
 const { resolve } = require("path")
 const fs = require("fs")
-const db = require("saver.db")
-const axios = require("axios")
 const path = require("path")
 
 async function start() {
