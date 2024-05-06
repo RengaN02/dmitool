@@ -392,31 +392,31 @@ class Dmi {
                     await dmi.states.push(state);
                     break;
                 case "dirs":
-                    if(state == undefined) throw Error("state yok bilader")
+                    if(state == undefined) throw Error("State is undefined")
                     state.dirs = parseInt(value);
                     break;
                 case "frames":
-                    if(state == undefined) throw Error("state yok bilader")
+                    if(state == undefined) throw Error("State is undefined")
                     temporaryFrameCounts.set(state, parseInt(value))
                     break;
                 case "delay":
-                    if(state == undefined) throw Error("state yok bilader")
+                    if(state == undefined) throw Error("State is undefined")
                     state.delays = value.split(",").map(x => (x.includes(".") ? parseFloat(x) : parseInt(x)));
                     break;
                 case "loop":
-                    if(state == undefined) throw Error("state yok bilader")
+                    if(state == undefined) throw Error("State is undefined")
                     state.loop = parseInt(value);
                     break;
                 case "rewind":
-                    if(state == undefined) throw Error("state yok bilader")
+                    if(state == undefined) throw Error("State is undefined")
                     state.rewind = parseInt(value) == "1";
                     break;
                 case "movement":
-                    if(state == undefined) throw Error("state yok bilader")
+                    if(state == undefined) throw Error("State is undefined")
                     state.movement = parseInt(value) == "1";
                     break;
                 case "hotspot":
-                    if(state == undefined) throw Error("state yok bilader")
+                    if(state == undefined) throw Error("State is undefined")
                     
                     const [x, y, first_frame] = value.split(",").map(x => parseInt(x));
                     const framecount = temporaryFrameCounts.get(state);
