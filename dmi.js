@@ -298,10 +298,7 @@ class Dmi {
         return { data: buffer, width: png_width, height: png_height };
     }
     
-    callback() {
-        
-    }
-
+   
     async createFile(filepath) {
         return new Promise((resolve, reject) => {
             const metadata = this.buildMetadata();
