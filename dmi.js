@@ -1,4 +1,3 @@
-const { decode, encode } = require("@vivaxy/png");
 const { decodePng, encodePng } = require("@lunapaint/png-codec");
 const { Image } = require("image-js");
 const UPNG = require("upng-js");
@@ -298,10 +297,7 @@ class Dmi {
         return { data: buffer, width: png_width, height: png_height };
     }
     
-    callback() {
-        
-    }
-
+   
     async createFile(filepath) {
         return new Promise((resolve, reject) => {
             const metadata = this.buildMetadata();
