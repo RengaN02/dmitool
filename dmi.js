@@ -1,4 +1,3 @@
-const { decode, encode } = require("@vivaxy/png");
 const { decodePng, encodePng } = require("@lunapaint/png-codec");
 const { Image } = require("image-js");
 const UPNG = require("upng-js");
