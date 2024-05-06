@@ -1,6 +1,10 @@
+const { decode, encode } = require("@vivaxy/png");
 const { decodePng, encodePng } = require("@lunapaint/png-codec");
 const { Image } = require("image-js");
 const UPNG = require("upng-js");
+const pngitxt = require('png-itxt')
+const { Readable } = require('stream');
+const fs = require("fs")
 
 const Dirs = {
     NORTH: 1,
@@ -68,7 +72,7 @@ class DmiState {
     get framecount() {
         return Math.floor(this.frames.length / this.dirs);
     }
-
+    
     serialize() {
         const obj = {
             name: this.name,
@@ -96,8 +100,8 @@ class DmiState {
         new_state.hotspots = state.hotspots;
         new_state.frames_encoded = state.frames_encoded;
         for (const frame of state.frames_encoded) {
-            const test = await Image.load(frame);
-            new_state.frames.push(test);
+            const ima = await Image.load(frame);
+            new_state.frames.push(ima);
         }
         return new_state;
     }
@@ -194,7 +198,7 @@ class DmiState {
         }
         return this.directional_previews[dir];
     }
-
+    
     async buildComposite() {
         const output_height = this.dirs * this.height;
         const output_width = this.width * this.framecount;
@@ -219,12 +223,13 @@ class DmiState {
 
 
 class Dmi {
-    constructor(width, height, states) {
+    constructor(width = 32, height = 32, states) {
         this.width = width;
         this.height = height;
         this.states = states ? states : [];
         this.version = "4.0";
     }
+    static version = "4.0"
 
     isSame(other) {
         return this.serialize() === other.serialize();
@@ -286,26 +291,30 @@ class Dmi {
                 i++;
             }
         }
-
-        const data = Uint8Array.from(result_image.data);
-        return { data: data, width: png_width, height: png_height };
+        
+        var data = Buffer.from(result_image.data)
+        var png = UPNG.encode([data], result_image.width, result_image.height, 256)
+        var buffer = Buffer.from(png)
+        return { data: buffer, width: png_width, height: png_height };
+    }
+    
+    callback() {
+        
     }
 
-    async getFileData() {
-        const metadata = this.buildMetadata();
-        const data = this.buildData();
-        const result = await encodePng(data, {
-            colorType: 6,
-            ancillaryChunks: [
-                {
-                    keyword: "Description",
-                    text: metadata,
-                    type: "zTXt"
-                }
-            ]
-        });
-        return result.data;
+    async createFile(filepath) {
+        return new Promise((resolve, reject) => {
+            const metadata = this.buildMetadata();
+            const data = this.buildData();
+            const stream = Readable.from(data.data);
+            stream.pipe(pngitxt.set({type:"zTXt", keyword:"Description", value:metadata}))
+            .pipe(fs.createWriteStream(filepath))
+            streamToBuffer(stream).then(a => {
+                resolve(true)
+            })
+        })
     }
+    
 
     serialize() {
         const obj = {
@@ -429,6 +438,7 @@ class Dmi {
         const image = await Image.load(data);
         const gridwidth = Math.floor(image.width / dmi.width);
         let i = 0;
+            
         for (const state of dmi.states) {
             const framecount = temporaryFrameCounts.get(state);
             if (framecount === undefined) {
@@ -438,7 +448,7 @@ class Dmi {
                 for (let dir = 0; dir < state.dirs; dir++) {
                     const px = dmi.width * (i % gridwidth);
                     const py = dmi.height * Math.floor(i / gridwidth);
-                    const im = image.crop({ x: px, y: py, width: dmi.width, height: dmi.height }); //image.crop((px, py, px + dmi.width, py + dmi.height))
+                    const im = image.crop({ x: px, y: py, width: dmi.width, height: dmi.height });
                     if (im.width !== dmi.width || im.height !== dmi.height)
                         throw new Error("Mismatched size when extracting frames");
                     state.frames.push(im);
@@ -475,4 +485,47 @@ function unescape_state_name(name) {
     return name.replace(/\\\\/g, "\\").replace(/\\n/g, "\n");
 }
 
-module.exports = Dmi
+function byteToUint8Array(byteArray) {
+    var uint8Array = new Uint8Array(byteArray.length);
+    for(var i = 0; i < uint8Array.length; i++) {
+        uint8Array[i] = byteArray[i];
+    }
+
+    return uint8Array;
+}
+
+function toArrayBuffer(buffer) {
+  const arrayBuffer = new ArrayBuffer(buffer.length);
+  const view = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < buffer.length; ++i) {
+    view[i] = buffer[i];
+  }
+  return arrayBuffer;
+}
+
+async function streamToBuffer(readableStream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    readableStream.on('data', data => {
+      if (typeof data === 'string') {
+        // Convert string to Buffer assuming UTF-8 encoding
+        chunks.push(Buffer.from(data, 'utf-8'));
+      } else if (data instanceof Buffer) {
+        chunks.push(data);
+      } else {
+        // Convert other data types to JSON and then to a Buffer
+        const jsonData = JSON.stringify(data);
+        chunks.push(Buffer.from(jsonData, 'utf-8'));
+      }
+    });
+    readableStream.on('end', () => {
+      resolve(Buffer.concat(chunks));
+    });
+    readableStream.on('error', reject);
+  });
+}
+
+module.exports.DmiState = DmiState
+module.exports.Dmi = Dmi
+module.exports.Dirs = Dirs
+module.exports.DirNames = DirNames
