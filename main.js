@@ -25,8 +25,7 @@ async function start(args) {
         var json = {
             width: dmi.width,
             height: dmi.height,
-            states: [],
-            statelength: dmi.states.length
+            states: []
         }
         var folderpath = `./${filename}_${nowdate}`
         if(fs.existsSync(folderpath)) return console.log("There is a folder which named like ./" + filename + "_" + nowdate)
