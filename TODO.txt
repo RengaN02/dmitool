@@ -1,2 +1,2 @@
-Write how can we use it.
+Write readme.md
 We cant decode long files
