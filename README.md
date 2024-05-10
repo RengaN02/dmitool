@@ -1,5 +1,5 @@
 # Nodejs Dmi
-Nodejs Dmi Parse Example
+Nodejs Dmi Reading And Creating Tool
 
 # Credits
 Thanks to https://github.com/AnturK/dmiEditor

@@ -1,0 +1,2 @@
+Write how can we use it.
+We cant decode long files

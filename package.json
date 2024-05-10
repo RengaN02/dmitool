@@ -1,29 +1,24 @@
 {
   "name": "nodejs-dmiparse",
   "version": "1.0.0",
-  "description": "Nodejs Dmi Parse Example",
+  "description": "Nodejs Dmi Reading And Creating Tool",
   "main": "main.js",
   "scripts": {
-    "test": "node test.js",
     "start": "node main.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/RengaN02/nodejs-dmiparse"
+    "url": "https://github.com/RengaN02/dmitool"
   },
   "keywords": [
-    "dmi"
+    "dmi",
+    "byond"
   ],
   "author": "Rengan",
   "dependencies": {
     "@lunapaint/png-codec": "^0.2.0",
-    "@vivaxy/png": "^1.3.0",
-    "axios": "^1.6.8",
-    "gif-encoder-2": "^1.0.5",
     "image-js": "^0.35.5",
     "png-itxt": "^2.0.0",
-    "sharp": "^0.33.3",
-    "upng-js": "^2.1.0",
-    "zlib": "^1.0.5"
+    "upng-js": "^2.1.0"
   }
 }

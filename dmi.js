@@ -225,7 +225,7 @@ class Dmi {
     constructor(width = 32, height = 32, states) {
         this.width = width;
         this.height = height;
-        this.states = states ? states : [];
+        this.states = [];
         this.version = "4.0";
     }
     static version = "4.0"
@@ -263,7 +263,7 @@ class Dmi {
         comment += "# END DMI\n";
         return comment;
     }
-
+    
     buildData() {
         const num_frames = this.states
             .map(x => x.frames.length)
@@ -280,7 +280,7 @@ class Dmi {
         const png_width = sqrt * this.width;
         const png_height = Math.ceil(num_frames / sqrt) * this.height;
         const result_image = DmiState.empty_frame(png_width, png_height);
-
+        
         let i = 0;
         for (const state of this.states) {
             for (const frame of state.frames) {
@@ -290,19 +290,18 @@ class Dmi {
                 i++;
             }
         }
-        
         var data = Buffer.from(result_image.data)
-        var png = UPNG.encode([data], result_image.width, result_image.height, 256)
+        var png = UPNG.encode([data], png_width, png_height, 512)
         var buffer = Buffer.from(png)
-        return { data: buffer, width: png_width, height: png_height };
+        return buffer;
     }
     
    
     async createFile(filepath) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const metadata = this.buildMetadata();
             const data = this.buildData();
-            const stream = Readable.from(data.data);
+            const stream = Readable.from(data);
             stream.pipe(pngitxt.set({type:"zTXt", keyword:"Description", value:metadata}))
             .pipe(fs.createWriteStream(filepath))
             streamToBuffer(stream).then(a => {
