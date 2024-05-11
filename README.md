@@ -1,5 +1,19 @@
-# Nodejs Dmi
+# Nodejs dmitool
 Nodejs Dmi Reading And Creating Tool
 
-# Credits
+## Usage
+### Unpacking
+```
+node main unpack <dmifile>
+```
+
+### Packing
+```
+node main pack <unpacked folder>
+```
+#### Configuration
+Open `config.json`
+The colornum is number of colors in the result.
+
+## Credits
 Thanks to https://github.com/AnturK/dmiEditor

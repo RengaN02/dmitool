@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-dmiparse",
+  "name": "dmitool",
   "version": "1.0.0",
   "description": "Nodejs Dmi Reading And Creating Tool",
   "main": "main.js",
@@ -19,6 +19,7 @@
     "@lunapaint/png-codec": "^0.2.0",
     "image-js": "^0.35.5",
     "png-itxt": "^2.0.0",
+    "progress": "^2.0.3",
     "upng-js": "^2.1.0"
   }
 }

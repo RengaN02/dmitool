@@ -1,25 +1,13 @@
 const { Dmi, DmiState } = require("./dmi.js")
-const { start } = require("./main.js")
+require("./main.js").start(["decode","96x96.dmi"])
 const { resolve } = require("path")
 const fs = require("fs")
 const path = require("path")
-const { decode, encode } = require("@vivaxy/png");
-const { Image } = require("image-js");
-const UPNG = require("upng-js");
-var pngitxt = require('png-itxt')
-const { decodePng, encodePng } = require("@lunapaint/png-codec");
 
 
 async function test() {
     
     //const args = process.argv.slice(2)
-    const dmi_data = fs.readFileSync(resolve(__dirname, "./d.dmi"));
-    
-    const dmi = await Dmi.parse(dmi_data);
-    
-    
-    dmi.createFile("newdevice.dmi")
-    
     
    //await start(["encode","d_1715348926873"])
     

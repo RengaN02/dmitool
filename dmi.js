@@ -4,6 +4,7 @@ const UPNG = require("upng-js");
 const pngitxt = require('png-itxt')
 const { Readable } = require('stream');
 const fs = require("fs")
+var colornum = fs.existsSync('config.json') ? (JSON.parse(fs.readFileSync(`config.json`,'utf8')).colornum || 512) : 512
 
 const Dirs = {
     NORTH: 1,
@@ -291,7 +292,7 @@ class Dmi {
             }
         }
         var data = Buffer.from(result_image.data)
-        var png = UPNG.encode([data], png_width, png_height, 512)
+        var png = UPNG.encode([data], png_width, png_height, colornum)
         var buffer = Buffer.from(png)
         return buffer;
     }
