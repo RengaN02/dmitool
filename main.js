@@ -18,7 +18,6 @@ async function start(args) {
         if(!fs.lstatSync(args[1]).isFile()) return console.log("This is not file")
         var extname = path.extname(args[1])
         if(extname != ".dmi") return console.log("The file must be dmi.")
-        
         var filename = path.basename(args[1], extname)
         var filebuffer = fs.readFileSync(args[1])
         Dmi.parse(filebuffer).then(dmi => {
@@ -44,7 +43,6 @@ async function start(args) {
                 var samenumber = same.filter(item => item === state.name).length
                 var statepath = `${folderpath}/${state.name.slice(1, state.name.length-1)}${state.movement? "@movement" : ""}${samenumber?`@${samenumber}`:``}` 
                 fs.mkdirSync(statepath)
-                
                 var statejson = {
                     name: state.name,
                     loop: state.loop,
