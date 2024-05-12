@@ -7,10 +7,10 @@ Nodejs Dmi Reading And Creating Tool
 node main unpack <dmifile>
 ```
 
-### Packing
+### Packing NOT WORKİNG
 ```
 node main pack <unpacked folder>
-```
+``` 
 #### Configuration
 Open `config.json`
 The colornum is number of colors in the result.
